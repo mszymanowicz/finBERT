@@ -13,7 +13,10 @@ FinBERT implementation relies on Hugging Face's `pytorch_pretrained_bert` librar
 ## Installing
  Install the dependencies from the given `requirements.txt` file into python3.7 virtual environment.
 ```bash
-pip3 install -r requirements.txt
+pip install -r requirements.txt
+pip install ipykernel
+pip install ipython kernel install --user --name=finEnv
+pip install jupyter
 ```
 
 ## Models
