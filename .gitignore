@@ -1,5 +1,6 @@
 
 data/
+environment.yml
 
 # Distribution / packaging
 ~*.*

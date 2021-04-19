@@ -11,22 +11,20 @@ FinBERT is a pre-trained NLP model to analyze sentiment of financial text. It is
 FinBERT implementation relies on Hugging Face's `pytorch_pretrained_bert` library and their implementation of BERT for sequence classification tasks. `pytorch_pretrained_bert` is an earlier version of the [`transformers`](https://github.com/huggingface/transformers) library. It is on the top of our priority to migrate the code for FinBERT to `transformers` in the near future.
 
 ## Installing
- Install the dependencies by creating the Conda environment `finbert` from the given `environment.yml` file and
- activating it.
+ Install the dependencies from the given `requirements.txt` file into python3.7 virtual environment.
 ```bash
-conda env create -f environment.yml
-conda activate finbert
+pip3 install -r requirements.txt
 ```
 
 ## Models
-FinBERT sentiment analysis model is now available on Hugging Face model hub. You can get the model [here](https://huggingface.co/ProsusAI/finbert). 
+<!--FinBERT sentiment analysis model is now available on Hugging Face model hub. You can get the model [here](https://huggingface.co/ProsusAI/finbert).-->
 
-Or, you can download the models from the links below:
+You can download the models from the links below:
 * [Language model trained on TRC2](https://prosus-public.s3-eu-west-1.amazonaws.com/finbert/language-model/pytorch_model.bin)
-* [Sentiment analysis model trained on Financial PhraseBank](https://prosus-public.s3-eu-west-1.amazonaws.com/finbert/finbert-sentiment/pytorch_model.bin)
+* [Sentiment analysis model trained on Financial PhraseBank](https://prosus-public.s3-eu-west-1.amazonaws.com/finbert/finbert-sentiment/pytorch_model.bin) (for testing purposes only, we train this one ourselves, download might be unnecessary)
 
-For both of these model, the workflow should be like this:
-* Create a directory for the model. For example: `models/sentiment/<model directory name>`
+For each model, the workflow should be like this:
+* Create a directory for the model. For example: `models/language/<model directory name>`
 * Download the model and put it into the directory you just created.
 * Put a copy of `config.json` in this same directory. 
 * Call the model with `.from_pretrained(<model directory name>)`
@@ -34,10 +32,10 @@ For both of these model, the workflow should be like this:
 ## Datasets
 There are two datasets used for FinBERT. The language model further training is done on a subset of Reuters TRC2 
 dataset. This dataset is not public, but researchers can apply for access 
-[here](https://trec.nist.gov/data/reuters/reuters.html).
+[here](https://trec.nist.gov/data/reuters/reuters.html). (we don't use it explicitly)
 
 For the sentiment analysis, we used Financial PhraseBank from [Malo et al. (2014)](https://www.researchgate.net/publication/251231107_Good_Debt_or_Bad_Debt_Detecting_Semantic_Orientations_in_Economic_Texts).
- The dataset can be downloaded from this [link](https://www.researchgate.net/profile/Pekka_Malo/publication/251231364_FinancialPhraseBank-v10/data/0c96051eee4fb1d56e000000/FinancialPhraseBank-v10.zip?origin=publication_list).
+ The dataset can be downloaded from this [link](https://www.researchgate.net/profile/Pekka_Malo/publication/251231364_FinancialPhraseBank-v10/data/0c96051eee4fb1d56e000000/FinancialPhraseBank-v10.zip?origin=publication_list). (Download only this dataset, then unpack it in data/)
  If you want to train the model on the same dataset, after downloading it, you should create three files under the 
  `data/sentiment_data` folder as `train.csv`, `validation.csv`, `test.csv`. 
 To create these files, do the following steps:
