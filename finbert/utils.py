@@ -166,6 +166,11 @@ def convert_examples_to_features(examples, label_list, max_seq_length, tokenizer
 
         token_type_ids += padding
 
+
+        # print('len(input_ids):',len(input_ids))
+        # print('len(attention_mask):',len(attention_mask))
+        # print('len(token_type_ids):',len(token_type_ids))
+        # print('example.label:',example.label)
         assert len(input_ids) == max_seq_length
         assert len(attention_mask) == max_seq_length
         assert len(token_type_ids) == max_seq_length
