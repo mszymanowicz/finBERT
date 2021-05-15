@@ -18,6 +18,7 @@ for row in csv_reader:
         article_body = article_body[6]
     except:
         continue
-    csv_writer.writerow([row[0], article_body[3:]],)
+    article_body = re.sub(r'(?<=[A-z][.,])(?=[^\s])', r' ', article_body[3:])
+    csv_writer.writerow([row[0], article_body])
 csv_read_file.close()
 csv_reworked_file.close()
