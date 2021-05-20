@@ -45,21 +45,21 @@ pos = []
 for item in database:
     item[0] = float(item[0])
     if item[0] < negative:
-        neg.append(item)
+        neg.append(["negative", item[1]])
     elif item[0] < neutral_negative:
         continue
     elif item[0] < neutral_positive:
-        neut.append(item)
+        neut.append(["neutral", item[1]])
     elif item[0] < positive:
         continue
     else:
-        pos.append(item)
+        pos.append(["positive", item[1]])
 
 print("Negative: " + str(len(neg)))
 print("Neutral: " + str(len(neut)))
 print("Positive: " + str(len(pos)))
 
-csv_result = csv.writer(open("sorted.csv", mode='w', encoding='utf-8'))
+csv_result = csv.writer(open("sorted.csv", mode='w', encoding='utf-8', newline=''))
 csv_result.writerows(neg)
 csv_result.writerows(neut)
 csv_result.writerows(pos)
