@@ -1,7 +1,7 @@
 import csv
 import os
 
-directory = "da curated dir/"
+directory = "priced dir/"
 files = os.listdir(directory)
 full = []
 
@@ -13,9 +13,10 @@ for file in files:
             continue
         full.append(row)
     csv_file.close()
-csv_file = open('full list.csv', mode='w', encoding='utf-8', newline='')
+    print(file)
+csv_file = open('learning data.csv', mode='w', encoding='utf-8', newline='')
 dialect = csv.Dialect
-csv_writer = csv.writer(csv_file,)
+csv_writer = csv.writer(csv_file)
 for row in full:
     csv_writer.writerow(row)
 csv_file.close()

@@ -5,7 +5,7 @@ file_path = "learning data.csv"
 csv_read_file = open(file_path, mode='r', encoding='utf-8')
 csv_reader = csv.reader(csv_read_file)
 reworked_path = "reworked.csv"
-csv_reworked_file = open(reworked_path, mode='w', encoding='utf-8',newline='')
+csv_reworked_file = open(reworked_path, mode='w', encoding='utf-8', newline='')
 csv_writer = csv.writer(csv_reworked_file)
 for row in csv_reader:
     print(row[1])
