@@ -1,0 +1,1 @@
+Look in code. Scrapper script needs chrome web driver in program files. Code is not that hard after it is written and "just works"
