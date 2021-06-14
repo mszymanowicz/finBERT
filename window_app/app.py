@@ -17,6 +17,7 @@ from finbert.finbert import predict
 class MainWindow(QMainWindow):
 
     def __init__(self, *args, **kwargs):
+        self.click_iter = 0
         super(MainWindow, self).__init__(*args, **kwargs)
 
         trainedModelPath="../models/trained_models/sentiment_6/"
@@ -43,7 +44,6 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.editor)
         layout.addWidget(self.listView)
 
-        print(self.editor)
         container = QWidget()
         container.setLayout(layout)
         self.setCentralWidget(container)
@@ -68,6 +68,11 @@ class MainWindow(QMainWindow):
         run_action.triggered.connect(self.click_run_button)
         file_toolbar.addAction(run_action)
 
+        reset_action = QAction(QIcon(os.path.join('images', 'trash.png')), "Reset ", self)
+        reset_action.setStatusTip("Reset")
+        reset_action.triggered.connect(self.reset)
+        file_toolbar.addAction(reset_action)
+
         self.setWindowIcon(QtGui.QIcon("images/logo_transparent.png"))
         self.setStyleSheet("color: black; background-color: white")
         self.resize(1200, 1000)
@@ -86,8 +91,12 @@ class MainWindow(QMainWindow):
             else:
                 self.path = path
                 self.editor.setPlainText(text)
-
+    def reset(self):
+        for i in range(self.click_iter):
+            self.model.removeRow(0)
+        self.click_iter = 0
     def click_run_button(self):
+        self.click_iter += 1
         text = self.editor
         sentence = QStandardItem()
         sentence_now = self.editor.toPlainText()
@@ -115,9 +124,6 @@ class MainWindow(QMainWindow):
         self.listView.setModel(self.model)
 
 if __name__ == '__main__':
-
-
-
 
     app = QApplication(sys.argv)
     app.setApplicationName("finBERT App")
