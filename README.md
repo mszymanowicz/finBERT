@@ -12,11 +12,11 @@ FinBERT implementation relies on Hugging Face's `pytorch_pretrained_bert` librar
 
 ## Preparation
 1.Download datasets scrapped from Reuters News, extract them and place them inside the `/data/` directory:
-
+https://mega.nz/file/ToYDBSxS#uQGtcCPNMc3EdVsJariICufDeZ1ObQJI5PaOvslkW6s
 These datasets can be used during model training outright or they can be further modified by the user.
 
-2.Download a collection of trained models, extract them and place them inside the '/models/' directory:
-
+2.Download a collection of trained models, extract them and place them inside the `/models/` directory:
+https://mega.nz/file/v4pmASqY#JhozT4eEvJB4vKeW2kopXsK-kNKL0WO047i0MHX8kqw
 The last, 6th model has achieved the best results and is recommended especially for inference. Its use is hardcoded in GUI.
 
 
