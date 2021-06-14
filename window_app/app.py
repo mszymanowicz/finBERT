@@ -35,8 +35,11 @@ class MainWindow(QMainWindow):
         # self.path holds the path of the currently open file.
         # If none, we haven't got a file open yet (or creating new).
         self.listView = QTableView()
+        self.listView.setSortingEnabled(False)
+        self.listView.setStyleSheet("color: black; background-color: #fff09c; background-image: url(images/logo_transparent.png)")
         self.model = QStandardItemModel()
         self.model.setHorizontalHeaderLabels(["Sentence", "prediction", "sentiment score"])
+        self.item = QStandardItem("Sentence")
         layout.addWidget(self.editor)
         layout.addWidget(self.listView)
 
@@ -61,13 +64,13 @@ class MainWindow(QMainWindow):
         file_toolbar.addAction(open_file_action)
 
         run_action = QAction(QIcon(os.path.join('images', 'start_icon.png')), "Run ", self)
-        run_action.setStatusTip("Open file")
+        run_action.setStatusTip("Run")
         run_action.triggered.connect(self.click_run_button)
         file_toolbar.addAction(run_action)
 
         self.setWindowIcon(QtGui.QIcon("images/logo_transparent.png"))
         self.setStyleSheet("color: black; background-color: white")
-        self.resize(800, 800)
+        self.resize(1200, 1000)
         self.show()
     def file_open(self):
         path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "Text documents (*.txt);All files (*.*)")
@@ -107,7 +110,7 @@ class MainWindow(QMainWindow):
         sentiment_score.setColumnCount(3)
         self.model.setColumnCount(3)
         self.model.appendRow([sentence, prediction, sentiment_score])
-        self.model.sort(0)
+        #self.model.sort(0)
 
         self.listView.setModel(self.model)
 
