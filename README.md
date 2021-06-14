@@ -10,6 +10,16 @@ FinBERT is a pre-trained NLP model to analyze sentiment of financial text. It is
 **Important Note:** 
 FinBERT implementation relies on Hugging Face's `pytorch_pretrained_bert` library and their implementation of BERT for sequence classification tasks. `pytorch_pretrained_bert` is an earlier version of the [`transformers`](https://github.com/huggingface/transformers) library. It is on the top of our priority to migrate the code for FinBERT to `transformers` in the near future.
 
+## Preparation
+1.Download datasets scrapped from Reuters News, extract them and place them inside the `/data/` directory:
+
+These datasets can be used during model training outright or they can be further modified by the user.
+
+2.Download a collection of trained models, extract them and place them inside the '/models/' directory:
+
+The last, 6th model has achieved the best results and is recommended especially for inference. Its use is hardcoded in GUI.
+
+
 ## Installing
  Install the dependencies from the given `requirements.txt` file into python3.7 virtual environment.
 ```bash

@@ -2,16 +2,25 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import QtGui
-
+from transformers import AutoModelForSequenceClassification
 
 import os
 import sys
+import inspect
+
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir)
+from finbert.finbert import predict
 
 
 class MainWindow(QMainWindow):
 
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
+
+        trainedModelPath="../models/trained_models/sentiment_6/"
+        self.trainedModel = AutoModelForSequenceClassification.from_pretrained(trainedModelPath,num_labels=3,cache_dir=None)
 
         layout = QVBoxLayout()
         self.editor = QPlainTextEdit()  # Could also use a QTextEdit and set self.editor.setAcceptRichText(False)
@@ -80,13 +89,20 @@ class MainWindow(QMainWindow):
         sentence = QStandardItem()
         sentence_now = self.editor.toPlainText()
         sentence.setText(sentence_now)
+        result = predict(sentence_now,self.trainedModel,write_to_csv=False,path=None)
         sentence.setColumnCount(1)
         prediction = QStandardItem()
-        prediction_value = "positive"
+        #prediction_value = "positive"
+        # print("result['prediction'][0]:",result['prediction'][0])
+        # print("type(result['prediction'][0]):",type(result['prediction'][0]))
+        # print("result['sentiment_score'][0]:",result['sentiment_score'][0])
+        # print("type(result['sentiment_score'][0]):",type(result['sentiment_score'][0]))
+        prediction_value = result['prediction'][0]
         prediction.setText(prediction_value)
         prediction.setColumnCount(2)
         sentiment_score = QStandardItem()
-        sentiment_score_value = "9.32423"
+        #sentiment_score_value = "9.32423"
+        sentiment_score_value = str(result['sentiment_score'][0].item())
         sentiment_score.setText(sentiment_score_value)
         sentiment_score.setColumnCount(3)
         self.model.setColumnCount(3)
@@ -96,6 +112,9 @@ class MainWindow(QMainWindow):
         self.listView.setModel(self.model)
 
 if __name__ == '__main__':
+
+
+
 
     app = QApplication(sys.argv)
     app.setApplicationName("finBERT App")
