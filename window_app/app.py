@@ -96,32 +96,30 @@ class MainWindow(QMainWindow):
             self.model.removeRow(0)
         self.click_iter = 0
     def click_run_button(self):
-        self.click_iter += 1
         text = self.editor
-        sentence = QStandardItem()
         sentence_now = self.editor.toPlainText()
-        sentence.setText(sentence_now)
+        print(sentence_now)
         result = predict(sentence_now,self.trainedModel,write_to_csv=False,path=None)
-        sentence.setColumnCount(1)
-        prediction = QStandardItem()
-        #prediction_value = "positive"
-        # print("result['prediction'][0]:",result['prediction'][0])
-        # print("type(result['prediction'][0]):",type(result['prediction'][0]))
-        # print("result['sentiment_score'][0]:",result['sentiment_score'][0])
-        # print("type(result['sentiment_score'][0]):",type(result['sentiment_score'][0]))
-        prediction_value = result['prediction'][0]
-        prediction.setText(prediction_value)
-        prediction.setColumnCount(2)
-        sentiment_score = QStandardItem()
-        #sentiment_score_value = "9.32423"
-        sentiment_score_value = str(result['sentiment_score'][0].item())
-        sentiment_score.setText(sentiment_score_value)
-        sentiment_score.setColumnCount(3)
-        self.model.setColumnCount(3)
-        self.model.appendRow([sentence, prediction, sentiment_score])
-        #self.model.sort(0)
+        self.click_iter += len(result['prediction'])
+        for i in range(len(result['prediction'])):
+            sentence = QStandardItem()
+            sentence.setText(result['sentence'][i])
+            sentence.setColumnCount(1)
+
+            prediction = QStandardItem()
+            prediction_value = result['prediction'][i]
+            prediction.setText(prediction_value)
+            prediction.setColumnCount(2)
+
+            sentiment_score = QStandardItem()
+            sentiment_score_value = str(result['sentiment_score'][i].item())
+            sentiment_score.setText(sentiment_score_value)
+            sentiment_score.setColumnCount(3)
+
+            self.model.appendRow([sentence, prediction, sentiment_score])
 
         self.listView.setModel(self.model)
+
 
 if __name__ == '__main__':
 
